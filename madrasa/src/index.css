@@ -1,0 +1,102 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-white dark:bg-gray-900 transition-colors duration-300;
+  }
+}
+
+@layer components {
+  /* Primary button - using Islamic Gold */
+  .btn-primary {
+    @apply bg-[#d4af37] hover:bg-[#d4af37]/90 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl dark:text-gray-900;
+  }
+  
+  /* Secondary button - using Islamic Green */
+  .btn-secondary {
+    @apply bg-[#0a5c36] hover:bg-[#0a5c36]/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 dark:bg-[#0a5c36]/90 dark:hover:bg-[#0a5c36];
+  }
+  
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .text-primary {
+    @apply text-gray-900 dark:text-white;
+  }
+  
+  .text-secondary {
+    @apply text-gray-600 dark:text-gray-300;
+  }
+  
+  .bg-section {
+    @apply bg-white dark:bg-gray-900;
+  }
+  
+  .bg-alt {
+    @apply bg-gray-50 dark:bg-gray-800;
+  }
+  
+  .border-color {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  
+  /* Custom background utilities */
+  .bg-islamic-green {
+    @apply bg-[#0a5c36];
+  }
+  
+  .bg-islamic-gold {
+    @apply bg-[#d4af37];
+  }
+  
+  .bg-islamic-cream {
+    @apply bg-[#fef9f0];
+  }
+  
+  /* Custom text utilities */
+  .text-islamic-green {
+    @apply text-[#0a5c36];
+  }
+  
+  .text-islamic-gold {
+    @apply text-[#d4af37];
+  }
+  
+  /* Custom border utilities */
+  .border-islamic-green {
+    @apply border-[#0a5c36];
+  }
+  
+  .border-islamic-gold {
+    @apply border-[#d4af37];
+  }
+}
+
+@layer utilities {
+  /* Gradient backgrounds */
+  .bg-gradient-islamic {
+    @apply bg-gradient-to-br from-[#0a5c36] to-[#d4af37];
+  }
+  
+  .bg-gradient-light {
+    @apply bg-gradient-to-br from-[#fef9f0] to-white;
+  }
+  
+  .bg-gradient-dark {
+    @apply bg-gradient-to-br from-gray-900 to-gray-800;
+  }
+}
