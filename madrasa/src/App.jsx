@@ -1,33 +1,56 @@
-import React from 'react'
-import { ThemeProvider } from './contexts/ThemeContext'
-import Navbar from './components/Navbar'
-import Hero from './sections/Hero'
-import Features from './sections/Features'
-import Courses from './sections/Courses'
-import About from './sections/About'
-import Testimonials from './sections/Testimonials'
-import FAQ from './sections/FAQ'
-import Download from './sections/Download'
-import Contact from './sections/Contact'
-import Footer from './sections/Footer'
+import React, { useEffect } from 'react';
+import { useDarkMode } from '@hooks/useDarkMode';
+import Navbar from '@components/layout/Navbar';
+import Hero from '@components/sections/Hero';
+import About from '@components/sections/About';
+import Features from '@components/sections/Features';
+import Courses from '@components/sections/Courses';
+import Testimonials from '@components/sections/Testimonials';
+import FAQ from '@components/sections/FAQ';
+import Contact from '@components/sections/Contact';
 
 function App() {
+  const [isDark, toggleDarkMode] = useDarkMode();
+
+  // Force apply dark mode styles
+  useEffect(() => {
+    const applyTheme = () => {
+      const elements = document.querySelectorAll('[class*="bg-"], [class*="text-"]');
+      elements.forEach(el => {
+        el.classList.toggle('dark', isDark);
+      });
+    };
+
+    applyTheme();
+    // Re-apply after a short delay to catch dynamically loaded content
+    const timeoutId = setTimeout(applyTheme, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, [isDark]);
+
   return (
-    <ThemeProvider>
-      <div className="min-h-screen bg-gradient-to-br from-[#fef9f0] to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
-        <Navbar />
+    <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
+      <div className={`transition-colors duration-300 ${
+        isDark 
+          ? 'bg-gray-900 text-gray-100' 
+          : 'bg-white text-gray-900'
+      }`}>
+        <Navbar isDark={isDark} toggleDarkMode={toggleDarkMode} />
         <Hero />
+        <About />
         <Features />
         <Courses />
-        <About />
         <Testimonials />
         <FAQ />
-        <Download />
         <Contact />
-        <Footer />
+        
+        {/* Theme debug indicator */}
+        <div className="fixed bottom-4 left-4 z-50 p-2 text-xs bg-black text-white rounded">
+          Theme: {isDark ? 'Dark' : 'Light'}
+        </div>
       </div>
-    </ThemeProvider>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

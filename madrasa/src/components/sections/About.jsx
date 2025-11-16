@@ -1,0 +1,177 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeInUp, stagger, slideInLeft, slideInRight } from '@utils/animations';
+import Button from '@components/ui/Button';
+
+const About = () => {
+  const handleLearnMore = () => {
+    // Scroll to features section
+    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const stats = [
+    { number: '5+', label: 'Years of Excellence' },
+    { number: '50+', label: 'Expert Instructors' },
+    { number: '10K+', label: 'Students Enrolled' },
+    { number: '95%', label: 'Satisfaction Rate' },
+  ];
+
+  return (
+    <section id="about" className="py-20 bg-white dark:bg-gray-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content - Image */}
+          <motion.div
+            variants={slideInLeft}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1581726707445-75cbe4efc586?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                alt="Islamic Education"
+                className="w-full h-[500px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              
+              {/* Floating Card */}
+              <motion.div
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                viewport={{ once: true }}
+                className="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center">
+                    <span className="text-white text-2xl">🕌</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-900 dark:text-white">Traditional Values</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">Modern Approach</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Decorative Elements */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute -top-4 -right-4 w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-2xl flex items-center justify-center text-primary-600 dark:text-primary-400 text-2xl shadow-lg"
+            >
+              📚
+            </motion.div>
+          </motion.div>
+
+          {/* Right Content - Text */}
+          <motion.div
+            variants={slideInRight}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            <div>
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 text-sm font-medium mb-4"
+              >
+                About Us
+              </motion.div>
+              <motion.h2
+                variants={fadeInUp}
+                className="text-display text-4xl sm:text-5xl text-gray-900 dark:text-white mb-4"
+              >
+                Bridging Tradition with Technology
+              </motion.h2>
+              <motion.p
+                variants={fadeInUp}
+                className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed"
+              >
+                Digital Madrasah is a pioneering educational platform that brings the rich tradition 
+                of Islamic learning into the digital age. We combine authentic Islamic teachings with 
+                modern educational technology.
+              </motion.p>
+            </div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="space-y-4"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 dark:text-gray-300">Authentic Islamic curriculum</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 dark:text-gray-300">Certified and experienced teachers</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 dark:text-gray-300">Interactive learning platform</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700 dark:text-gray-300">Flexible learning schedule</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="pt-6"
+            >
+              <Button size="lg" onClick={handleLearnMore}>
+                Learn More About Our Approach
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Stats Section */}
+        <motion.div
+          variants={stagger}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              variants={fadeInUp}
+              className="text-center"
+            >
+              <div className="text-3xl sm:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">
+                {stat.number}
+              </div>
+              <div className="text-gray-600 dark:text-gray-300 font-medium">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default About;
