@@ -29,6 +29,7 @@ html {
   scroll-behavior: smooth;
   font-feature-settings: 'cv11', 'ss01';
   font-variation-settings: 'opsz' 32;
+  overflow-x: hidden;
 }
 
 body {
@@ -47,4 +48,35 @@ body {
   color: #f9fafb;
 }
 
-/* Rest of your existing styles remain the same... */
+/* Shiny text animation */
+.dm-shiny-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.dm-shiny-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.9),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: dmSweep 3.5s infinite;
+}
+
+@keyframes dmSweep {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}

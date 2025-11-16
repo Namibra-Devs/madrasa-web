@@ -1,12 +1,14 @@
+import { Home, Info, Star, BookOpen, Users, HelpCircle, Phone } from "lucide-react";
+
 export const NAV_LINKS = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Features', href: '#features' },
-  { name: 'Courses', href: '#courses' },
-  { name: 'Testimonials', href: '#testimonials' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Contact', href: '#contact' },
-];;
+  { name: "Home", href: "#hero", icon: Home },
+  { name: "About", href: "#about", icon: Info },
+  { name: "Features", href: "#features", icon: Star },
+  { name: "Courses", href: "#courses", icon: BookOpen },
+  { name: "Testimonials", href: "#testimonials", icon: Users },
+  { name: "FAQ", href: "#faq", icon: HelpCircle },
+  { name: "Contact", href: "#contact", icon: Phone },
+];
 
 export const FEATURES = [
   {
