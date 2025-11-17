@@ -25,33 +25,25 @@ const Hero = () => {
       {/* Background Video with Fallback - Theme Aware */}
       <div className="absolute inset-0 w-full h-full">
         {/* Video Background - Only show in dark mode or based on preference */}
-        {isDark && (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            className="w-full h-full object-cover"
-            onLoadedData={() => setIsVideoLoaded(true)}
-            onError={() => setIsVideoLoaded(false)}
-            poster="/images/hero-fallback.jpg"
-          >
-            <source src="/videos/hero-bg.mp4" type="video/mp4" />
-            <source src="/videos/hero-bg.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-        )}
 
-        {/* Gradient Overlay - Theme Specific */}
-        <div
-          className={`absolute inset-0 transition-all duration-500 ${
-            isDark
-              ? "bg-gradient-to-br from-primary-900/70 via-primary-800/50 to-primary-900/70"
-              : "bg-gradient-to-br from-blue-50/90 via-primary-50/80 to-emerald-50/90"
-          }`}
-        ></div>
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+          onLoadedData={() => setIsVideoLoaded(true)}
+          onError={() => setIsVideoLoaded(false)}
+          poster="/images/hero-fallback.jpg"
+        >
+          <source src="/videos/hero.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Always-visible dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/55"></div>
 
         {/* Fallback Background if video fails or in light mode */}
         {(!isVideoLoaded || !isDark) && (
@@ -116,10 +108,7 @@ const Hero = () => {
               isDark ? "" : ""
             }`}
           >
-            Join{" "}
-            <strong className={isDark ? "" : ""}>
-              Digital Madrasah
-            </strong>{" "}
+            Join <strong className={isDark ? "" : ""}>Digital Madrasah</strong>{" "}
             - Where traditional
             <span
               className={`arabic-text font-semibold mx-2 ${
