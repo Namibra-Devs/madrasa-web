@@ -1,162 +1,183 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { fadeInUp, slideInLeft, slideInRight } from '@utils/animations';
-import Button from '@components/ui/Button';
+import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { fadeInUp } from "@utils/animations";
+import Button from "@components/ui/Button";
+import { useDarkMode } from "@hooks/useDarkMode";
 
 const Hero = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isDark, toggleDarkMode] = useDarkMode(); // Using the existing hook
+  const videoRef = useRef(null);
+
   const handleGetApp = () => {
-    alert('Redirecting to app store...');
+    alert("Redirecting to app store...");
+  };
+
+  const handleExploreCourses = () => {
+    document.getElementById("courses")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-16 hero-gradient">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <motion.div
-            variants={slideInLeft}
+    <section
+      id="home"
+      className="relative h-[calc(var(--vh)*100)] flex items-center justify-center overflow-hidden"
+    >
+      {/* Background Video with Fallback - Theme Aware */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Video Background - Only show in dark mode or based on preference */}
+        {isDark && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+            onLoadedData={() => setIsVideoLoaded(true)}
+            onError={() => setIsVideoLoaded(false)}
+            poster="/images/hero-fallback.jpg"
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+            <source src="/videos/hero-bg.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        )}
+
+        {/* Gradient Overlay - Theme Specific */}
+        <div
+          className={`absolute inset-0 transition-all duration-500 ${
+            isDark
+              ? "bg-gradient-to-br from-primary-900/70 via-primary-800/50 to-primary-900/70"
+              : "bg-gradient-to-br from-blue-50/90 via-primary-50/80 to-emerald-50/90"
+          }`}
+        ></div>
+
+        {/* Fallback Background if video fails or in light mode */}
+        {(!isVideoLoaded || !isDark) && (
+          <div
+            className={`absolute inset-0 transition-all duration-500 ${
+              isDark ? "" : ""
+            }`}
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a34a' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Main Content - Theme Aware Colors */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 top-15">
+        <div className="flex flex-col items-center justify-center text-center">
+          {/* Main Heading */}
+          <motion.h1
+            variants={fadeInUp}
             initial="initial"
             animate="animate"
-            className="text-center lg:text-left"
+            className={`text-display text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight max-w-5xl transition-colors duration-500 ${
+              isDark ? "" : ""
+            }`}
           >
-            <motion.div
-              variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full  border border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6"
+            Learn{" "}
+            <motion.span
+              className={`bg-clip-text text-transparent bg-gradient-to-r ${
+                isDark
+                  ? "from-green-500 to-emerald-800"
+                  : "from-primary-600 to-emerald-700"
+              }`}
+              animate={{
+                backgroundPosition: ["0%", "100%", "0%"],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{
+                backgroundSize: "200% 200%",
+              }}
             >
-              <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></span>
-              Revolutionizing Islamic Education
-            </motion.div>
-            
-            <motion.h1
-              variants={fadeInUp}
-              className="text-display text-5xl sm:text-6xl lg:text-7xl text-gray-900 dark:text-white mb-6 leading-tight"
-            >
-              Learn{' '}
-              <span className="text-gradient text-shadow-glow">
-                Islam
-              </span>
-              <br />
-              in the Digital Age
-            </motion.h1>
-            
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl leading-relaxed"
-            >
-              Traditional <span className="arabic-text font-semibold text-primary-600 dark:text-primary-400">مدرسة</span> education meets cutting-edge technology. 
-              Access comprehensive courses, qualified teachers, and interactive learning from anywhere.
-            </motion.p>
+              Quran & Arabic
+            </motion.span>
+            <br />
+            with Certified Scholars
+          </motion.h1>
 
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            >
-              <Button size="lg" onClick={handleGetApp} className="btn-modern">
-                <span className="flex items-center gap-2">
-                  Download App
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </span>
-              </Button>
-              <Button variant="outline" size="lg" className="border-2">
-                Explore Courses
-              </Button>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="mt-12 flex items-center justify-center lg:justify-start space-x-8 text-gray-600 dark:text-gray-400"
-            >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">10K+</div>
-                <div className="text-sm font-medium">Active Students</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">50+</div>
-                <div className="text-sm font-medium">Courses</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">100+</div>
-                <div className="text-sm font-medium">Certified Teachers</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Content - Modern App Mockup */}
-          <motion.div
-            variants={slideInRight}
+          {/* Subtitle */}
+          <motion.p
+            variants={fadeInUp}
             initial="initial"
             animate="animate"
-            className="relative"
+            className={`text-xl lg:text-2xl mb-8 max-w-4xl leading-relaxed font-light transition-colors duration-500 ${
+              isDark ? "" : ""
+            }`}
           >
-            <div className="relative mx-auto w-80 h-[600px] bg-gray-900 rounded-[40px] p-4 shadow-2xl border-2 border-gray-800">
-              {/* Notch */}
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-full z-10"></div>
-              
-              <div className="w-full h-full bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-[32px] p-6 flex flex-col items-center justify-center text-white text-center relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-10 left-10 w-20 h-20 border-2 border-white rounded-full"></div>
-                  <div className="absolute bottom-10 right-10 w-16 h-16 border-2 border-white rounded-full"></div>
-                </div>
-                
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="relative z-10 mb-8"
+            Join{" "}
+            <strong className={isDark ? "" : ""}>
+              Digital Madrasah
+            </strong>{" "}
+            - Where traditional
+            <span
+              className={`arabic-text font-semibold mx-2 ${
+                isDark ? "text-emerald-600" : "text-primary-600"
+              }`}
+            >
+              مدرسة
+            </span>
+            education meets cutting-edge technology. Study with qualified
+            teachers from anywhere in the world.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            variants={fadeInUp}
+            initial="initial"
+            animate="animate"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+          >
+            <Button
+              size="lg"
+              onClick={handleGetApp}
+              className={`hover:scale-105 transform transition-all duration-300 shadow-2xl border-0 rounded-2xl px-8 py-4 font-bold text-lg group ${
+                isDark
+                  ? "bg-white text-primary-600 hover:bg-gray-100"
+                  : "bg-primary-600 text-white hover:bg-primary-700"
+              }`}
+            >
+              <span className="flex items-center gap-3">
+                Start Free Trial
+                <motion.svg
+                  className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  <div className="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/30">
-                    <span className="text-4xl">🕌</span>
-                  </div>
-                </motion.div>
-                
-                <h3 className="text-3xl font-bold mb-4 text-display">Digital Madrasah</h3>
-                <p className="text-white/80 mb-8 text-lg leading-relaxed">
-                  Your gateway to authentic Islamic knowledge
-                </p>
-                
-                <div className="space-y-4 w-full max-w-xs relative z-10">
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="glass rounded-2xl p-4 text-left backdrop-blur-sm"
-                  >
-                    <div className="font-semibold text-lg">Quran Reading</div>
-                    <div className="text-sm opacity-80 mt-1">Beginner to Advanced</div>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="glass rounded-2xl p-4 text-left backdrop-blur-sm"
-                  >
-                    <div className="font-semibold text-lg">Islamic Studies</div>
-                    <div className="text-sm opacity-80 mt-1">Comprehensive Curriculum</div>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="glass rounded-2xl p-4 text-left backdrop-blur-sm"
-                  >
-                    <div className="font-semibold text-lg">Arabic Language</div>
-                    <div className="text-sm opacity-80 mt-1">Speak & Understand</div>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating Elements */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-4 -right-4 w-20 h-20 bg-primary-200 dark:bg-primary-800 rounded-2xl flex items-center justify-center text-primary-600 dark:text-primary-400 text-xl shadow-lg"
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </motion.svg>
+              </span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={handleExploreCourses}
+              className={`rounded-2xl px-8 py-4 font-semibold text-lg backdrop-blur-sm hover:scale-105 transform transition-all duration-300 ${
+                isDark
+                  ? "border-2 border-white text-white hover:bg-white hover:text-primary-600"
+                  : "border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white"
+              }`}
             >
-              📖
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-              className="absolute -bottom-4 -left-4 w-16 h-16 bg-primary-300 dark:bg-primary-700 rounded-2xl flex items-center justify-center text-primary-700 dark:text-primary-300 text-lg shadow-lg"
-            >
-              ✨
-            </motion.div>
+              Explore Courses
+            </Button>
           </motion.div>
         </div>
       </div>

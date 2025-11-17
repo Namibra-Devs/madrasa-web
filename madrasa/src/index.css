@@ -9,6 +9,7 @@
   --primary-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   --text-gradient: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
   --shadow-glow: 0 20px 40px rgba(34, 197, 94, 0.15);
+  --vh: 1vh;
 }
 
 .dark {

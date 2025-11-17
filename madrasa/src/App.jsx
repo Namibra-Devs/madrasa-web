@@ -22,19 +22,35 @@ function App() {
     };
 
     applyTheme();
-    // Re-apply after a short delay to catch dynamically loaded content
     const timeoutId = setTimeout(applyTheme, 100);
-    
+
     return () => clearTimeout(timeoutId);
   }, [isDark]);
 
+  // ✅ Fix mobile viewport height (for Hero full screen)
+  useEffect(() => {
+    const setVh = () => {
+      document.documentElement.style.setProperty(
+        '--vh',
+        `${window.innerHeight * 0.01}px`
+      );
+    };
+
+    setVh();
+    window.addEventListener('resize', setVh);
+
+    return () => window.removeEventListener('resize', setVh);
+  }, []);
+
   return (
     <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
-      <div className={`transition-colors duration-300 ${
-        isDark 
-          ? 'bg-gray-900 text-gray-100' 
-          : 'bg-white text-gray-900'
-      }`}>
+      <div
+        className={`transition-colors duration-300 ${
+          isDark
+            ? 'bg-gray-900 text-gray-100'
+            : 'bg-white text-gray-900'
+        }`}
+      >
         <Navbar isDark={isDark} toggleDarkMode={toggleDarkMode} />
         <Hero />
         <About />
@@ -43,7 +59,7 @@ function App() {
         <Testimonials />
         <FAQ />
         <Contact />
-        
+
         {/* Theme debug indicator */}
         <div className="fixed bottom-4 left-4 z-50 p-2 text-xs bg-black text-white rounded">
           Theme: {isDark ? 'Dark' : 'Light'}

@@ -132,10 +132,7 @@ const Testimonials = () => {
                 </div>
               </div>
 
-              {/* Decorative Quote */}
-              <div className="absolute top-4 right-4 text-6xl text-primary-200 dark:text-primary-800 opacity-50">
-                "
-              </div>
+            
             </motion.div>
           ))}
         </motion.div>
