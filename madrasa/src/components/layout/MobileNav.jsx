@@ -64,7 +64,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
   };
 
   return (
-    <div className="md:hidden relative z-[80]">
+    <div className="md:hidden relative z-[80] overflow-hidden">
       {/* Magnetic Menu Button */}
       <motion.button
         style={{ x: springX, y: springY }}
@@ -86,7 +86,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
           <>
             {/* Circular background */}
             <motion.div
-              className="fixed top-4 right-4 w-20 h-20 rounded-full bg-white dark:bg-gray-900 z-[60]"
+              className="fixed top-4 right-4 w-20 h-20 rounded-full bg-white dark:bg-gray-900 z-0"
               variants={circleVariants}
               initial="closed"
               animate="open"
@@ -95,7 +95,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
 
             {/* Full-screen menu */}
             <motion.div
-              className="fixed inset-0 z-[70] flex flex-col text-center px-8 min-h-screen justify-center items-center pointer-events-auto"
+              className="fixed inset-0 z-[70] overflow-hidden flex flex-col text-center px-8 min-h-screen justify-center items-center pointer-events-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

@@ -31,7 +31,7 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className={`fixed top-8 left-7 right-7 z-50 transition-all duration-500 ${
+        className={`fixed top-8 left-4 right-4 sm:left-7 sm:right-7 z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50"
             : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-xl border border-gray-100/30 dark:border-gray-800/30"
@@ -39,7 +39,7 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="container mx-auto px-7 py-3">
+        <div className="container mx-auto px-4 sm:px-7 py-3">
           <div className="flex items-center justify-between">
             {/* Logo with Image and Title Link */}
             <motion.div
