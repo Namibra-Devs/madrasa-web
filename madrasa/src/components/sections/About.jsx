@@ -28,42 +28,17 @@ const About = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-xl overflow-hidden shadow-md">
               <img 
-                src="https://images.unsplash.com/photo-1581726707445-75cbe4efc586?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                src="/images/about.png"
                 alt="Islamic Education"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[700px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              
-              {/* Floating Card */}
-              <motion.div
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                viewport={{ once: true }}
-                className="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center">
-                    <span className="text-white text-2xl">🕌</span>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-white">Traditional Values</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Modern Approach</p>
-                  </div>
-                </div>
-              </motion.div>
+            
             </div>
 
-            {/* Decorative Elements */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-4 -right-4 w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-2xl flex items-center justify-center text-primary-600 dark:text-primary-400 text-2xl shadow-lg"
-            >
-              📚
-            </motion.div>
+           
           </motion.div>
 
           {/* Right Content - Text */}
