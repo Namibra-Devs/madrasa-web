@@ -71,7 +71,7 @@ const Hero = () => {
             initial="initial"
             animate="animate"
             className={`text-display text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-tight max-w-5xl transition-colors duration-500 ${
-              isDark ? "" : ""
+              isDark ? "text-white" : "text-white"
             }`}
           >
             Learn{" "}
@@ -105,7 +105,7 @@ const Hero = () => {
             initial="initial"
             animate="animate"
             className={`text-xl lg:text-2xl mb-8 max-w-4xl leading-relaxed font-light transition-colors duration-500 ${
-              isDark ? "" : ""
+              isDark ? "text-white" : "text-white"
             }`}
           >
             Join <strong className={isDark ? "" : ""}>Digital Madrasah</strong>{" "}
