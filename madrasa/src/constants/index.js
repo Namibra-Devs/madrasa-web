@@ -1,5 +1,24 @@
-import { Home, Info, Star, BookOpen, Users, HelpCircle, Phone } from "lucide-react";
+import { 
+  Home, 
+  Info, 
+  Star, 
+  BookOpen, 
+  Users, 
+  HelpCircle, 
+  Phone,
+  GraduationCap,
+  UserCheck,
+  Clock,
+  BarChart3,
+  Book,
+  Landmark,
+  Brain,
+  ScrollText,
+  Users2,
+  Library
+} from "lucide-react";
 
+// ✅ Navigation Links (already correct)
 export const NAV_LINKS = [
   { name: "Home", href: "#hero", icon: Home },
   { name: "About", href: "#about", icon: Info },
@@ -10,29 +29,31 @@ export const NAV_LINKS = [
   { name: "Contact", href: "#contact", icon: Phone },
 ];
 
+// ✅ FEATURES — replaced emojis with Lucide icons
 export const FEATURES = [
   {
     title: 'Interactive Lessons',
     description: 'Engaging multimedia content with quizzes and interactive exercises',
-    icon: '🎓',
+    icon: GraduationCap,
   },
   {
     title: 'Qualified Teachers',
     description: 'Learn from certified Islamic scholars and experienced educators',
-    icon: '👨‍🏫',
+    icon: UserCheck,
   },
   {
     title: 'Flexible Schedule',
     description: 'Learn at your own pace with 24/7 access to course materials',
-    icon: '⏰',
+    icon: Clock,
   },
   {
     title: 'Progress Tracking',
     description: 'Monitor your learning journey with detailed progress reports',
-    icon: '📊',
+    icon: BarChart3,
   },
 ];
 
+// ✅ FAQ stays the same (no icons needed)
 export const FAQS = [
   {
     question: 'What age groups do you cater to?',
@@ -52,6 +73,7 @@ export const FAQS = [
   }
 ];
 
+// ✅ COURSES — replaced emojis with Lucide icons
 export const COURSES = [
   {
     title: 'Quran Reading & Tajweed',
@@ -59,7 +81,7 @@ export const COURSES = [
     duration: '6 Months',
     students: '2,500+',
     description: 'Learn proper Quran recitation with Tajweed rules from qualified Qaris.',
-    icon: '📖',
+    icon: Book, 
     color: 'from-blue-500 to-cyan-500',
   },
   {
@@ -68,7 +90,7 @@ export const COURSES = [
     duration: '12 Months',
     students: '1,800+',
     description: 'Comprehensive Islamic education covering Aqeedah, Fiqh, Seerah, and more.',
-    icon: '🕌',
+    icon: Landmark,
     color: 'from-green-500 to-emerald-500',
   },
   {
@@ -77,7 +99,7 @@ export const COURSES = [
     duration: '9 Months',
     students: '1,200+',
     description: 'Master classical and modern Arabic for understanding Quran and Hadith.',
-    icon: '🈁',
+    icon: Library,
     color: 'from-orange-500 to-red-500',
   },
   {
@@ -86,7 +108,7 @@ export const COURSES = [
     duration: '24 Months',
     students: '800+',
     description: 'Structured program for memorizing the Holy Quran with understanding.',
-    icon: '🧠',
+    icon: Brain,
     color: 'from-purple-500 to-pink-500',
   },
   {
@@ -95,7 +117,7 @@ export const COURSES = [
     duration: '4 Months',
     students: '950+',
     description: 'Explore the rich history of Islam and Muslim civilizations.',
-    icon: '📜',
+    icon: ScrollText,
     color: 'from-amber-500 to-yellow-500',
   },
   {
@@ -104,7 +126,7 @@ export const COURSES = [
     duration: 'Ongoing',
     students: '1,500+',
     description: 'Age-appropriate Islamic education for children and teenagers.',
-    icon: '👨‍👩‍👧‍👦',
+    icon: Users2,
     color: 'from-indigo-500 to-blue-500',
   },
 ];

@@ -121,29 +121,6 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Stats Section */}
-        <motion.div
-          variants={stagger}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="text-center"
-            >
-              <div className="text-3xl sm:text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2">
-                {stat.number}
-              </div>
-              <div className="text-gray-600 dark:text-gray-300 font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
