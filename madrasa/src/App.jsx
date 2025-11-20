@@ -8,6 +8,7 @@ import Courses from '@components/sections/Courses';
 import Testimonials from '@components/sections/Testimonials';
 import FAQ from '@components/sections/FAQ';
 import Contact from '@components/sections/Contact';
+import Footer from '@components/sections/Footer';
 
 function App() {
   const [isDark, toggleDarkMode] = useDarkMode();
@@ -59,6 +60,7 @@ function App() {
         <Testimonials />
         <FAQ />
         <Contact />
+        <Footer />
 
         {/* Theme debug indicator */}
         <div className="fixed bottom-4 left-4 z-50 p-2 text-xs bg-black text-white rounded">

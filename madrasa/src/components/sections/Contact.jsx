@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, slideInLeft, slideInRight } from '@utils/animations';
 import Button from '@components/ui/Button';
+import { Mail, Smartphone, Clock } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,15 +12,12 @@ const Contact = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+    // For now, just show alert; can integrate email service later
     alert('Thank you for your message! We will get back to you soon.');
     setFormData({ name: '', email: '', message: '' });
   };
@@ -27,6 +25,7 @@ const Contact = () => {
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           variants={fadeInUp}
           initial="initial"
@@ -43,7 +42,7 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <motion.div
             variants={slideInLeft}
             initial="initial"
@@ -51,43 +50,63 @@ const Contact = () => {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Contact Information
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
-                    <span className="text-primary-600 dark:text-primary-400 text-xl">📧</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">Email</div>
-                    <div className="text-gray-600 dark:text-gray-300">salam@digitalmadrasah.app</div>
-                  </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              Contact Information
+            </h3>
+
+            <div className="space-y-4">
+              {/* Email */}
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
+                  <Mail className="text-primary-600 dark:text-primary-400" size={24} />
                 </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
-                    <span className="text-primary-600 dark:text-primary-400 text-xl">📱</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">Phone</div>
-                    <div className="text-gray-600 dark:text-gray-300">+233 54209 5568 | +233 54 547 8786</div>
-                  </div>
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">Email</div>
+                  <a
+                    href="mailto:salam@digitalmadrasah.app"
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    salam@digitalmadrasah.app
+                  </a>
                 </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
-                    <span className="text-primary-600 dark:text-primary-400 text-xl">🕒</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">Support Hours</div>
-                    <div className="text-gray-600 dark:text-gray-300">24/7 Available</div>
-                  </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
+                  <Smartphone className="text-primary-600 dark:text-primary-400" size={24} />
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">Phone</div>
+                  <a
+                    href="tel:+233542095568"
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    +233 54209 5568
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    href="tel:+233545478786"
+                    className="text-gray-600 dark:text-gray-300 hover:underline"
+                  >
+                    +233 54 547 8786
+                  </a>
+                </div>
+              </div>
+
+              {/* Support Hours */}
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center">
+                  <Clock className="text-primary-600 dark:text-primary-400" size={24} />
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">Support Hours</div>
+                  <div className="text-gray-600 dark:text-gray-300">24/7 Available</div>
                 </div>
               </div>
             </div>
 
+            {/* Download App */}
             <div className="bg-primary-50 dark:bg-primary-900/20 rounded-2xl p-6">
               <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                 Download Our App
@@ -95,7 +114,7 @@ const Contact = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Start your Islamic learning journey today with our mobile app.
               </p>
-              <Button onClick={() => alert('Redirecting to app store...')}>
+              <Button onClick={() => window.open('https://digitalmadrasah.app', '_blank')}>
                 Download Now
               </Button>
             </div>
