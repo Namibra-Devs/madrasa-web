@@ -28,11 +28,11 @@ const About = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative rounded-xl overflow-hidden shadow-md">
+            <div className="relative rounded-xl overflow-hidden shadow-md md:w-80% md:h-[400px]">
               <img 
                 src="/images/about.png"
                 alt="Islamic Education"
-                className="w-full h-[700px] object-cover"
+                className="w-full h-[700px] object-cover md:w-80% md:h-[400px]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             

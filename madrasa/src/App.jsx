@@ -3,6 +3,7 @@ import { useDarkMode } from '@hooks/useDarkMode';
 import Navbar from '@components/layout/Navbar';
 import Hero from '@components/sections/Hero';
 import About from '@components/sections/About';
+import CEOMessage from '@components/sections/CEOMessage';
 import Features from '@components/sections/Features';
 import Courses from '@components/sections/Courses';
 import Testimonials from '@components/sections/Testimonials';
@@ -55,6 +56,7 @@ function App() {
         <Navbar isDark={isDark} toggleDarkMode={toggleDarkMode} />
         <Hero />
         <About />
+        <CEOMessage />
         <Features />
         <Courses />
         <Testimonials />
