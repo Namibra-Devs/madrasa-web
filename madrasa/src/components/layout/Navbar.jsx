@@ -18,9 +18,13 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
   }, []);
 
   const handleGetApp = () => {
-    // Simulate app download
-    alert("Redirecting to app store...");
-  };
+  window.open(
+    "https://play.google.com/store/apps/details?id=com.digitalmadrasah.madrasah&pcampaignid=web_share",
+    "_blank",
+    "noopener,noreferrer"
+  );
+};
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

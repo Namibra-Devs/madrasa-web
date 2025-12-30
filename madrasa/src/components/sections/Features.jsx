@@ -137,7 +137,7 @@ const Features = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8"
         >
           {FEATURES.map((feature, index) => {
             const IconComponent = feature.icon; // Get the Lucide icon component

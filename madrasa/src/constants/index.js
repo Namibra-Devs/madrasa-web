@@ -15,7 +15,9 @@ import {
   Brain,
   ScrollText,
   Users2,
-  Library
+  Library,
+  Video,
+  ShieldCheck // New icon for Audited Courses
 } from "lucide-react";
 
 // ✅ Navigation Links (already correct)
@@ -29,27 +31,40 @@ export const NAV_LINKS = [
   { name: "Contact", href: "#contact", icon: Phone },
 ];
 
-// ✅ FEATURES — replaced emojis with Lucide icons
+// ✅ FEATURES — Updated with 6 features: 3 top, 3 down
 export const FEATURES = [
+  // First row (top 3)
   {
     title: 'Interactive Lessons',
-    description: 'Engaging multimedia content with quizzes and interactive exercises',
+    description: 'Engaging multimedia content with quizzes, simulations, and interactive exercises',
     icon: GraduationCap,
   },
   {
     title: 'Qualified Teachers',
-    description: 'Learn from certified Islamic scholars and experienced educators',
+    description: 'Learn from certified Islamic scholars, Hafiz, and experienced educators',
     icon: UserCheck,
   },
   {
     title: 'Flexible Schedule',
-    description: 'Learn at your own pace with 24/7 access to course materials',
+    description: 'Learn at your own pace with 24/7 access to course materials and recordings',
     icon: Clock,
+  },
+  
+  // Second row (bottom 3)
+  {
+    title: 'Live Sessions',
+    description: 'Real-time interactive classes with Q&A, group discussions, and direct teacher feedback',
+    icon: Video,
   },
   {
     title: 'Progress Tracking',
-    description: 'Monitor your learning journey with detailed progress reports',
+    description: 'Monitor your learning journey with detailed progress reports and personalized insights',
     icon: BarChart3,
+  },
+  {
+    title: 'Audited Courses',
+    description: 'All curriculum reviewed and approved by senior Islamic scholars for authenticity',
+    icon: ShieldCheck,
   },
 ];
 

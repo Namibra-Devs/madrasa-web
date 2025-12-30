@@ -114,7 +114,7 @@ const Contact = () => {
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 Start your Islamic learning journey today with our mobile app.
               </p>
-              <Button onClick={() => window.open('https://digitalmadrasah.app', '_blank')}>
+              <Button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.digitalmadrasah.madrasah&pcampaignid=web_share', '_blank')}>
                 Download Now
               </Button>
             </div>

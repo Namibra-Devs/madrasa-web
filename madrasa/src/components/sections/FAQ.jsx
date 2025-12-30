@@ -48,22 +48,33 @@ const FAQ = () => {
             viewport={{ once: true }}
             className="relative group"
           >
-            {/* Main Image Container */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              {/* Image */}
-              <img 
-                src="/images/faq.png" 
-                alt="Students learning at Digital Madrasah"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  // Fallback gradient background
-                  e.target.parentElement.className += ' bg-gradient-to-br from-primary-500 to-primary-600';
-                }}
-              />
-              
-            
-            </div>
+         {/* Main Image Container */}
+<div className="relative w-full max-w-md h-[700px] mx-auto overflow-hidden rounded-3xl group">
+  <img
+    src="/images/faq.png"
+    alt="Students learning at Digital Madrasah"
+    className="
+      absolute
+      top-1/2 left-1/2
+      min-w-[30%] min-h-[20%]
+      -translate-x-1/2 -translate-y-1/2
+      object-cover
+      transition-transform duration-700
+      group-hover:scale-110
+      lg:-mt-24 
+    "
+    onError={(e) => {
+      e.target.remove()
+      e.currentTarget.parentElement.classList.add(
+        'bg-gradient-to-br',
+        'from-primary-500',
+        'to-primary-600'
+      )
+    }}
+  />
+</div>
+
+
 
            
           </motion.div>
@@ -88,7 +99,7 @@ const FAQ = () => {
                 <motion.div
                   key={index}
                   variants={fadeInUp}
-                  className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group"
+                  className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 group "
                 >
                   <button
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}

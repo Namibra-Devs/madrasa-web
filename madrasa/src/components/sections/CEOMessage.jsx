@@ -45,7 +45,7 @@ const CEOMessage = () => {
               <img 
                 src="/images/ceo.jpeg" 
                 alt="CEO of Digital Madrasah"
-                className="w-full h-full object-cover"
+                className="w-90% h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               
@@ -92,11 +92,7 @@ const CEOMessage = () => {
               variants={fadeInUp}
               className="space-y-6"
             >
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                As someone who has spent decades studying traditional Islamic sciences and witnessing 
-                the digital revolution, I saw a crucial gap. While technology advanced, authentic 
-                Islamic education remained largely inaccessible to many.
-              </p>
+            
               
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 At Digital Madrasah, we bridge this gap by preserving the integrity of classical 

@@ -18,7 +18,7 @@ const Testimonials = () => {
       id: 2,
       name: 'Fatima Ali',
       role: 'Mother of Two Students',
-      image: '/images/female1.avif',
+      image: '/images/female1.jpeg',
       content:
         'My children love their classes! The interactive lessons keep them engaged, and I can see their love for Islam growing every day. The progress tracking feature is amazing.',
       rating: 5,
@@ -27,7 +27,7 @@ const Testimonials = () => {
       id: 3,
       name: 'Mohammed Ibrahim',
       role: 'Arabic Language Student',
-      image: '/images/male3.webp',
+      image: '/images/male2.jpeg',
       content:
         'As a busy professional, I never thought I could learn Arabic. Digital Madrasah made it possible with their flexible schedule and excellent teaching methods.',
       rating: 5,
@@ -36,7 +36,7 @@ const Testimonials = () => {
       id: 4,
       name: 'Aisha Bashiru',
       role: 'Islamic Studies Student',
-      image: '/images/female3.webp',
+      image: '/images/female2.jpeg',
       content:
         "The depth of knowledge and authenticity of the curriculum is impressive. I feel like I'm getting a proper Islamic education from the comfort of my home.",
       rating: 5,
