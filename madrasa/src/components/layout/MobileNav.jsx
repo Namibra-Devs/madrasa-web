@@ -43,6 +43,15 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
     },
   };
 
+  const handleGetApp = () => {
+    window.open(
+      "https://play.google.com/store/apps/details?id=com.digitalmadrasah.madrasah&pcampaignid=web_share",
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setIsOpen(false); // closes modal/drawer if applicable
+  };
+
   // Stagger animation for links
   const linkContainer = {
     hidden: {},
@@ -161,10 +170,15 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
                   transition={{ delay: 0.4 }}
                   className="flex items-center justify-center space-x-4 pt-8 w-full"
                 >
-                  <Button className="animate-pulse text-md" variant="outline" size="md" onClick={toggleDarkMode}>
+                  <Button
+                    className="animate-pulse text-md"
+                    variant="outline"
+                    size="md"
+                    onClick={toggleDarkMode}
+                  >
                     {isDark ? "Light Mode" : "Dark Mode"}
                   </Button>
-                  <Button size="lg" onClick={() => setIsOpen(false)}>
+                  <Button size="lg" onClick={handleGetApp}>
                     Get App
                   </Button>
                 </motion.div>
