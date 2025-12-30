@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeInUp, slideInLeft, slideInRight } from '@utils/animations';
 import Button from '@components/ui/Button';
-import { Mail, Smartphone, Clock } from 'lucide-react';
+import { Mail, Smartphone, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import axios from 'axios';
+import apiurl from '../../utils/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,16 +12,66 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [attachment, setAttachment] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setAttachment(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, just show alert; can integrate email service later
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('message', formData.message);
+      
+      if (attachment) {
+        formDataToSend.append('attachment', attachment);
+      }
+
+      const response = await axios.post(
+        `${apiurl}/contact/send-message`,
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setAttachment(null);
+        // Reset file input
+        const fileInput = document.getElementById('attachment');
+        if (fileInput) fileInput.value = '';
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => setSubmitStatus(null), 5000);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitStatus('error');
+      
+      // Clear error message after 5 seconds
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -128,6 +180,25 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <div className="flex items-center gap-2 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
+                  <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
+                  <p className="text-green-800 dark:text-green-200 text-sm">
+                    Message sent successfully! We'll get back to you soon.
+                  </p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                  <AlertCircle className="text-red-600 dark:text-red-400" size={20} />
+                  <p className="text-red-800 dark:text-red-200 text-sm">
+                    Failed to send message. Please try again or contact us directly.
+                  </p>
+                </div>
+              )}
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Full Name
@@ -139,7 +210,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -155,7 +227,8 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter your email address"
                 />
               </div>
@@ -171,13 +244,38 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors resize-none"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Tell us how we can help you..."
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full">
-                Send Message
+              <div>
+                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Attachment (Optional)
+                </label>
+                <input
+                  type="file"
+                  id="attachment"
+                  name="attachment"
+                  onChange={handleFileChange}
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-900 dark:file:text-primary-300"
+                />
+                {attachment && (
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    Selected: {attachment.name}
+                  </p>
+                )}
+              </div>
+
+              <Button 
+                type="submit" 
+                size="lg" 
+                className="w-full" 
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
             </form>
           </motion.div>

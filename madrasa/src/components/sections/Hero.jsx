@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeInUp } from "@utils/animations";
 import Button from "@components/ui/Button";
 import { useDarkMode } from "@hooks/useDarkMode";
+import { portal } from "../../utils/api";
 
 const Hero = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -10,7 +11,7 @@ const Hero = () => {
   const videoRef = useRef(null);
 
   const handleGetApp = () => {
-    alert("Redirecting to app store...");
+    window.open(`${portal}/login`, "_blank", "noopener,noreferrer");
   };
 
   const handleExploreCourses = () => {
