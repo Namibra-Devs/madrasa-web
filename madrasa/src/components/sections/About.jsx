@@ -110,14 +110,7 @@ const About = () => {
               </div>
             </motion.div>
 
-            <motion.div
-              variants={fadeInUp}
-              className="pt-6"
-            >
-              <Button size="lg" onClick={handleLearnMore}>
-                Learn More About Our Approach
-              </Button>
-            </motion.div>
+            
           </motion.div>
         </div>
 

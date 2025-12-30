@@ -51,22 +51,22 @@ const Footer = () => {
   const socialLinks = [
     { 
       icon: Facebook, 
-      href: 'https://facebook.com/digitalmadrasah', 
+      href: 'https://web.facebook.com/people/Digital-Madrasah-App/100079542912871/', 
       label: 'Facebook' 
     },
     { 
       icon: Twitter, 
-      href: 'https://twitter.com/digitalmadrasah', 
+      href: 'https://twitter.com/digitalmadapp ', 
       label: 'Twitter' 
     },
     { 
       icon: Instagram, 
-      href: 'https://instagram.com/digitalmadrasah', 
+      href: 'https://instagram.com/digitalmadrasahapp', 
       label: 'Instagram' 
     },
     { 
       icon: Youtube, 
-      href: 'https://youtube.com/digitalmadrasah', 
+      href: 'https://youtube.com/DigitalMadrasahApp', 
       label: 'YouTube' 
     }
   ];
