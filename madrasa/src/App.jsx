@@ -64,10 +64,7 @@ function App() {
         <Contact />
         <Footer />
 
-        {/* Theme debug indicator */}
-        <div className="fixed bottom-4 left-4 z-50 p-2 text-xs bg-black text-white rounded">
-          Theme: {isDark ? 'Dark' : 'Light'}
-        </div>
+       
       </div>
     </div>
   );
