@@ -141,20 +141,12 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Circular background */}
+            {/* Full-screen menu with solid background */}
             <motion.div
-              className="fixed top-4 right-4 w-20 h-20 rounded-full bg-white dark:bg-gray-900 z-0"
-              variants={circleVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-            />
-
-            {/* Full-screen menu */}
-            <motion.div
-              className="fixed inset-0 z-[70] overflow-hidden flex flex-col text-center px-8 justify-center items-center pointer-events-auto"
+              className="fixed inset-0 z-[70] flex flex-col text-center px-8 justify-center items-center pointer-events-auto"
               style={{ 
                 minHeight: 'calc(var(--vh, 1vh) * 100)',
+                backgroundColor: isDark ? 'rgb(17, 24, 39)' : 'rgb(255, 255, 255)', // Solid bg-gray-900 or white
                 WebkitOverflowScrolling: 'touch' 
               }}
               initial={{ opacity: 0 }}
@@ -190,8 +182,8 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
                       className={`flex items-center gap-4 text-4xl font-bold w-full py-3 px-4 rounded-xl transition-all duration-300
                         ${
                           active
-                            ? "text-primary-600 dark:text-primary-400 shadow-[6px_0_25px_-4px_rgba(0,255,120,.5)]"
-                            : "text-gray-800 dark:text-gray-100"
+                            ? "text-primary-600 dark:text-primary-400 bg-opacity-10 dark:bg-opacity-10 bg-primary-500"
+                            : "text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                     >
                       <Icon size={36} />
