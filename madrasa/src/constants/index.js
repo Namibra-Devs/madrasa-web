@@ -17,18 +17,20 @@ import {
   Users2,
   Library,
   Video,
+  Shield,
   ShieldCheck // New icon for Audited Courses
 } from "lucide-react";
 
 // ✅ Navigation Links (already correct)
 export const NAV_LINKS = [
-  { name: "Home", href: "#hero", icon: Home },
+  { name: "Home", href: "/", icon: Home },
   { name: "About", href: "#about", icon: Info },
   { name: "Features", href: "#features", icon: Star },
   { name: "Courses", href: "#courses", icon: BookOpen },
   { name: "Testimonials", href: "#testimonials", icon: Users },
   { name: "FAQ", href: "#faq", icon: HelpCircle },
   { name: "Contact", href: "#contact", icon: Phone },
+  { name: "Privacy", href: "/PrivacyPolicy", icon: Shield },
 ];
 
 // ✅ FEATURES — Updated with 6 features: 3 top, 3 down

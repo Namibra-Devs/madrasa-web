@@ -4,12 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
 @import './tailwind.css';
+
 /* Base dark mode setup */
 :root {
   --primary-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
   --text-gradient: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
   --shadow-glow: 0 20px 40px rgba(34, 197, 94, 0.15);
-  
 }
 
 .dark {
@@ -30,7 +30,7 @@ html {
   scroll-behavior: smooth;
   font-feature-settings: 'cv11', 'ss01';
   font-variation-settings: 'opsz' 32;
-  overflow-x: hidden;
+  /* REMOVED overflow-x: hidden - it breaks position: sticky */
 }
 
 body {
@@ -42,7 +42,7 @@ body {
   background-color: white;
   color: #1f2937;
   transition: background-color 0.3s ease, color 0.3s ease;
-  overflow-x: hidden;
+  /* REMOVED overflow-x: hidden - it breaks position: sticky */
 }
 
 .dark body {
@@ -81,4 +81,8 @@ body {
   100% {
     left: 150%;
   }
+}
+
+.sidebar-container {
+  height: fit-content;
 }

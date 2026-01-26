@@ -5,13 +5,15 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "@constants";
 import Button from "@components/ui/Button";
 import { X } from "lucide-react";
 
 const MobileNav = ({ isDark, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [active, setActive] = useState("#home");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Magnetic button effect
   const x = useMotionValue(0);
@@ -24,6 +26,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
     x.set(e.clientX - (rect.left + rect.width / 2));
     y.set(e.clientY - (rect.top + rect.height / 2));
   };
+  
   const hoverReset = () => {
     x.set(0);
     y.set(0);
@@ -49,7 +52,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
       "_blank",
       "noopener,noreferrer"
     );
-    setIsOpen(false); // closes modal/drawer if applicable
+    setIsOpen(false);
   };
 
   // Stagger animation for links
@@ -62,6 +65,7 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
       },
     },
   };
+
   const linkItem = {
     hidden: { opacity: 0, y: 30 },
     show: {
@@ -70,6 +74,50 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
       transition: { type: "spring", stiffness: 50, damping: 5 },
     },
     exit: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+  };
+
+  // Handle navigation - pages vs sections
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    // Check if it's a hash link (section) or page link
+    if (link.href.startsWith('#')) {
+      // It's a section link
+      if (location.pathname !== '/') {
+        // If not on home page, navigate to home first
+        navigate('/');
+        // Then scroll to section after navigation
+        setTimeout(() => {
+          const element = document.querySelector(link.href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.querySelector(link.href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    } else {
+      // It's a page link (like / or /privacy)
+      navigate(link.href);
+      // Scroll to top when navigating to a new page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  // Check if link is active
+  const isLinkActive = (link) => {
+    if (link.href.startsWith('#')) {
+      // For section links, they're active when on home page
+      return location.pathname === '/' && location.hash === link.href;
+    } else {
+      // For page links, check exact path match
+      return location.pathname === link.href;
+    }
   };
 
   return (
@@ -104,7 +152,11 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
 
             {/* Full-screen menu */}
             <motion.div
-              className="fixed inset-0 z-[70] overflow-hidden flex flex-col text-center px-8 min-h-screen justify-center items-center pointer-events-auto"
+              className="fixed inset-0 z-[70] overflow-hidden flex flex-col text-center px-8 justify-center items-center pointer-events-auto"
+              style={{ 
+                minHeight: 'calc(var(--vh, 1vh) * 100)',
+                WebkitOverflowScrolling: 'touch' 
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -127,35 +179,20 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
               >
                 {NAV_LINKS.map((link) => {
                   const Icon = link.icon;
+                  const active = isLinkActive(link);
+                  
                   return (
                     <motion.a
                       key={link.name}
                       href={link.href}
-                      onClick={(e) => {
-                        setActive(link.href);
-                        setIsOpen(false);
-
-                        // Scroll to hero if Home is clicked
-                        if (link.name === "Home") {
-                          e.preventDefault();
-                          // Give time for menu to close before scrolling
-                          setTimeout(() => {
-                            const heroSection = document.querySelector("#hero");
-                            if (heroSection) {
-                              heroSection.scrollIntoView({
-                                behavior: "smooth",
-                              });
-                            }
-                          }, 100);
-                        }
-                      }}
+                      onClick={(e) => handleNavClick(e, link)}
                       variants={linkItem}
                       className={`flex items-center gap-4 text-4xl font-bold w-full py-3 px-4 rounded-xl transition-all duration-300
-        ${
-          active === link.href
-            ? "text-primary-600 dark:text-primary-400 shadow-[6px_0_25px_-4px_rgba(0,255,120,.5)]"
-            : "text-gray-800 dark:text-gray-100"
-        }`}
+                        ${
+                          active
+                            ? "text-primary-600 dark:text-primary-400 shadow-[6px_0_25px_-4px_rgba(0,255,120,.5)]"
+                            : "text-gray-800 dark:text-gray-100"
+                        }`}
                     >
                       <Icon size={36} />
                       {link.name}
@@ -171,12 +208,12 @@ const MobileNav = ({ isDark, toggleDarkMode }) => {
                   className="flex items-center justify-center space-x-4 pt-8 w-full"
                 >
                   <Button
-                    className="animate-pulse text-md"
+                    className="text-md"
                     variant="outline"
                     size="md"
                     onClick={toggleDarkMode}
                   >
-                    {isDark ? "Light Mode" : "Dark Mode"}
+                    {isDark ? "☀️ Light" : "🌙 Dark"}
                   </Button>
                   <Button size="lg" onClick={handleGetApp}>
                     Get App

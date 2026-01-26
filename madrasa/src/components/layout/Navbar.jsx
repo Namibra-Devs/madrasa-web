@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { NAV_LINKS } from "@constants";
 import Button from "@components/ui/Button";
 import MobileNav from "./MobileNav";
@@ -8,6 +9,8 @@ import ShinyText from "@/components/ShinyText";
 const Navbar = ({ isDark, toggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,16 +21,47 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
   }, []);
 
   const handleGetApp = () => {
-  window.open(
-    "https://play.google.com/store/apps/details?id=com.digitalmadrasah.madrasah&pcampaignid=web_share",
-    "_blank",
-    "noopener,noreferrer"
-  );
-};
-
+    window.open(
+      "https://play.google.com/store/apps/details?id=com.digitalmadrasah.madrasah&pcampaignid=web_share",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
 
   const scrollToTop = () => {
+    navigate('/');
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Handle navigation - pages vs sections
+  const handleLinkClick = (href, e) => {
+    e.preventDefault();
+    
+    // Check if it's a hash link (section) or page link
+    if (href.startsWith("#")) {
+      // It's a section link
+      if (location.pathname !== "/") {
+        // If not on home page, navigate to home first
+        navigate('/');
+        // Then scroll to section after navigation
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    } else {
+      // It's a page link (like /privacy)
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -37,9 +71,13 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
         animate={{ y: 0, opacity: 1 }}
         className={`fixed top-8 left-6 right-6 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl  border border-gray-200/50 dark:border-gray-700/50"
-            : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg  border border-gray-100/30 dark:border-gray-800/30"
+            ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50"
+            : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border border-gray-100/30 dark:border-gray-800/30"
         } rounded-2xl mx-auto max-w-7xl`}
+        style={{
+          WebkitBackdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(12px)'
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -80,11 +118,13 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
               </motion.div>
 
               {/* Title as Link */}
-              <ShinyText
-                text="Digital Madrasah"
-                speed={4}
-                className="text-xl font-bold"
-              />
+              <div className="no-underline">
+                <ShinyText
+                  text="Digital Madrasah"
+                  speed={4}
+                  className="text-xl font-bold"
+                />
+              </div>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -94,7 +134,8 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 group/nav-item"
+                    onClick={(e) => handleLinkClick(link.href, e)}
+                    className="relative px-4 py-2 text-gray-700 dark:text-gray-300 font-medium transition-all duration-300 group/nav-item cursor-pointer"
                     whileHover={{ y: -1 }}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -119,7 +160,7 @@ const Navbar = ({ isDark, toggleDarkMode }) => {
               {/* Theme Toggle */}
               <motion.button
                 onClick={toggleDarkMode}
-                className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300 border border-gray-200 dark:border-gray-700 animate-pulse"
+                className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300 border border-gray-200 dark:border-gray-700"
                 whileHover={{ scale: 1.05, rotate: 180 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
